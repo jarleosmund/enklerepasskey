@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enkle passkeys</title>
+  <meta name="description" content="En enkel forklaring på passord vs. passkeys, hvor passkeys lagres, Windows Hello og vanlige spørsmål.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top">🔑 Enkle passkeys</a>
+      <nav class="nav" aria-label="Hovedmeny">
+        <a href="#forskjell">Passord vs. passkey</a>
+        <a href="#lagring">Lagring</a>
+        <a href="#windows-hello">Windows Hello</a>
+        <a href="#faq">Spørsmål og svar</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Bytt mellom lyst og mørkt tema">◐</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <p class="eyebrow">Forklart uten fagprat</p>
+      <h1>Passkeys erstatter passordet ditt, og de er tryggere</h1>
+      <p class="lead">Du logger inn med fingeren, ansiktet eller PIN-koden du allerede bruker til å låse opp telefonen eller PC-en. Ingenting å huske, og ingenting en svindler kan lure ut av deg.</p>
+      <ol class="steps-mini">
+        <li><span>1</span> Forskjellen</li>
+        <li><span>2</span> Hvor de lagres</li>
+        <li><span>3</span> Windows Hello</li>
+        <li><span>4</span> Spørsmål og svar</li>
+      </ol>
+    </section>
+
+    <!-- 1. FORSKJELL -->
+    <section id="forskjell" class="section">
+      <div class="wrap">
+        <p class="eyebrow">Del 1</p>
+        <h2>Passord vs. passkey</h2>
+        <p class="lead">Med et passord sender du en hemmelighet over nettet. Med en passkey forlater hemmeligheten aldri enheten din.</p>
+
+        <div class="analogy">
+          <div class="card">
+            <h3>🗝️ Passord = en kode du sier høyt</h3>
+            <p>Du sier koden til dørvakten. Hvis noen hører den, eller du sier den til feil dørvakt, kan de bruke den selv. Dørvakten må også ha en liste over alles koder, og den listen kan bli stjålet.</p>
+          </div>
+          <div class="card">
+            <h3>🔐 Passkey = en nøkkel som aldri forlater lomma</h3>
+            <p>Døra har en lås (den <em>offentlige</em> nøkkelen). Bare din nøkkel (den <em>private</em>) passer. Du viser ikke frem nøkkelen, du bare beviser at den passer. Låsen er verdiløs for tyver.</p>
+          </div>
+        </div>
+
+        <div class="demo card">
+          <div class="demo-head">
+            <h3>Se hva som skjer når du logger inn</h3>
+            <div class="seg" role="tablist" aria-label="Velg innloggingsmetode">
+              <button role="tab" aria-selected="true" data-flow="password">Passord</button>
+              <button role="tab" aria-selected="false" data-flow="passkey">Passkey</button>
+            </div>
+          </div>
+          <div class="flow" id="flow">
+            <div class="node"><div class="icon">💻</div><div>Deg</div></div>
+            <div class="track"><div class="packet" id="packet"></div></div>
+            <div class="node"><div class="icon">🌐</div><div>Nettsiden</div></div>
+          </div>
+          <ol class="flow-steps" id="flowSteps"></ol>
+          <button class="btn" id="playFlow">▶ Spill av</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="compare">
+            <thead>
+              <tr><th></th><th>Passord</th><th>Passkey</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Må huskes</td><td class="bad">Ja</td><td class="good">Nei</td></tr>
+              <tr><td>Kan lures ut av deg (phishing)</td><td class="bad">Ja</td><td class="good">Nei, virker bare på riktig nettside</td></tr>
+              <tr><td>Lekker ved datainnbrudd hos nettsiden</td><td class="bad">Ja</td><td class="good">Nei, siden har bare den offentlige nøkkelen</td></tr>
+              <tr><td>Kan gjenbrukes på flere sider</td><td class="bad">Ja, og folk gjør det</td><td class="good">Nei, én unik nøkkel per side</td></tr>
+              <tr><td>Hvordan du logger inn</td><td>Skriver tekst</td><td>Fingeravtrykk, ansikt eller PIN</td></tr>
+              <tr><td>Trenger ekstra SMS-kode</td><td class="bad">Ofte</td><td class="good">Nei, to faktorer er bygd inn</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <aside class="callout">
+          <strong>Viktig:</strong> Fingeravtrykket eller ansiktet ditt sendes <em>aldri</em> til nettsiden. Det brukes bare lokalt for å låse opp nøkkelen på din egen enhet.
+        </aside>
+      </div>
+    </section>
+
+    <!-- 2. LAGRING -->
+    <section id="lagring" class="section alt">
+      <div class="wrap">
+        <p class="eyebrow">Del 2</p>
+        <h2>Hvor lagres passkeys?</h2>
+        <p class="lead">En passkey lagres hos en <strong>passkey-leverandør</strong>: telefonen, PC-en, en passordbehandler eller en fysisk sikkerhetsnøkkel. Noen synkroniseres mellom enhetene dine, andre blir værende på én enhet.</p>
+
+        <div class="kinds">
+          <div class="card kind">
+            <h3>☁️ Synkronisert</h3>
+            <p>Kopieres kryptert mellom enhetene dine via kontoen din (Apple, Google, 1Password osv.). Mister du telefonen, har du den fortsatt på den nye.</p>
+          </div>
+          <div class="card kind">
+            <h3>📍 Bundet til én enhet</h3>
+            <p>Finnes bare på den ene enheten eller nøkkelen. Ekstra sikkert, men forsvinner den, forsvinner passkeyen. Da trenger du en reserve.</p>
+          </div>
+        </div>
+
+        <div class="tabs" id="deviceTabs">
+          <div class="tablist" role="tablist" aria-label="Velg enhet">
+            <button role="tab" aria-selected="true" data-tab="apple">🍎 iPhone / Mac</button>
+            <button role="tab" aria-selected="false" data-tab="android">🤖 Android / Chrome</button>
+            <button role="tab" aria-selected="false" data-tab="windows">🪟 Windows</button>
+            <button role="tab" aria-selected="false" data-tab="pm">🧰 Passordbehandler</button>
+            <button role="tab" aria-selected="false" data-tab="key">🔌 Sikkerhetsnøkkel</button>
+          </div>
+
+          <div class="panel card" data-panel="apple">
+            <h3>iPhone, iPad og Mac</h3>
+            <dl class="facts">
+              <dt>Lagres i</dt><dd>iCloud-nøkkelring (appen «Passord» i nyere iOS/macOS)</dd>
+              <dt>Synkroniseres</dt><dd class="good">Ja, til alle Apple-enheter med samme Apple-konto</dd>
+              <dt>Låses opp med</dt><dd>Face ID, Touch ID eller enhetskoden</dd>
+              <dt>Kryptering</dt><dd>Ende-til-ende. Apple kan ikke lese passkeyene dine.</dd>
+            </dl>
+            <p class="tip">💡 På en Windows-PC eller annen manns maskin kan du bruke iPhonen ved å skanne en QR-kode. Telefonen og PC-en snakker sammen over Bluetooth for å bekrefte at du er i nærheten.</p>
+          </div>
+
+          <div class="panel card" data-panel="android" hidden>
+            <h3>Android og Chrome</h3>
+            <dl class="facts">
+              <dt>Lagres i</dt><dd>Google Passordbehandler</dd>
+              <dt>Synkroniseres</dt><dd class="good">Ja, mellom Android-enheter og Chrome der du er logget inn med Google-kontoen</dd>
+              <dt>Låses opp med</dt><dd>Fingeravtrykk, ansikt eller skjermlås-PIN</dd>
+              <dt>Kryptering</dt><dd>Ende-til-ende, beskyttet med skjermlåsen eller en egen PIN for Google Passordbehandler</dd>
+            </dl>
+            <p class="tip">💡 Android kan også bruke andre leverandører, som 1Password, Bitwarden eller Samsung Pass. Velg standard under Innstillinger → Passord og kontoer.</p>
+          </div>
+
+          <div class="panel card" data-panel="windows" hidden>
+            <h3>Windows</h3>
+            <dl class="facts">
+              <dt>Lagres i</dt><dd>Lokalt på PC-en, beskyttet av Windows Hello og TPM-brikken</dd>
+              <dt>Synkroniseres</dt><dd class="warn">Som standard nei. Passkeyen blir på den ene PC-en.</dd>
+              <dt>Låses opp med</dt><dd>Windows Hello: ansikt, fingeravtrykk eller PIN</dd>
+              <dt>Alternativer</dt><dd>Lagre i en passordbehandler, eller bruk telefonen via QR-kode</dd>
+            </dl>
+            <p class="tip">💡 Mer om dette i <a href="#windows-hello">Windows Hello-delen</a>.</p>
+          </div>
+
+          <div class="panel card" data-panel="pm" hidden>
+            <h3>Passordbehandlere (1Password, Bitwarden, Dashlane, Proton Pass …)</h3>
+            <dl class="facts">
+              <dt>Lagres i</dt><dd>Hvelvet ditt hos leverandøren</dd>
+              <dt>Synkroniseres</dt><dd class="good">Ja, på tvers av plattformer: Windows, Mac, Android, iPhone og Linux</dd>
+              <dt>Låses opp med</dt><dd>Hovedpassord eller biometri på enheten</dd>
+              <dt>Fordel</dt><dd>Ikke låst til Apple, Google eller Microsoft. Fint hvis du har iPhone og Windows-PC.</dd>
+            </dl>
+            <p class="tip">💡 iOS, Android og nyere Windows 11 lar passordbehandleren dukke opp direkte i den innebygde passkey-dialogen.</p>
+          </div>
+
+          <div class="panel card" data-panel="key" hidden>
+            <h3>Fysisk sikkerhetsnøkkel (f.eks. YubiKey)</h3>
+            <dl class="facts">
+              <dt>Lagres i</dt><dd>En brikke inne i nøkkelen. Kan ikke kopieres ut.</dd>
+              <dt>Synkroniseres</dt><dd class="warn">Nei. Bundet til nøkkelen.</dd>
+              <dt>Låses opp med</dt><dd>Trykk på nøkkelen, ofte sammen med en PIN</dd>
+              <dt>Passer for</dt><dd>De som vil ha høyest sikkerhet, eller jobbkontoer</dd>
+            </dl>
+            <p class="tip">💡 Kjøp to og registrer begge, så har du en reserve i skuffen.</p>
+          </div>
+        </div>
+
+        <div class="matrix card">
+          <h3>Hvor kan jeg bruke passkeyen min?</h3>
+          <p class="muted">Med QR-kode og Bluetooth kan du alltid bruke telefonen til å logge inn på en annen enhet, også en som ikke synkroniserer.</p>
+          <div class="table-wrap">
+            <table class="compare small">
+              <thead><tr><th>Lagret i</th><th>Apple</th><th>Android</th><th>Windows</th><th>Linux</th></tr></thead>
+              <tbody>
+                <tr><td>iCloud-nøkkelring</td><td class="good">✔</td><td>QR</td><td>QR</td><td>QR</td></tr>
+                <tr><td>Google Passordbehandler</td><td>✔ i Chrome</td><td class="good">✔</td><td>✔ i Chrome</td><td>✔ i Chrome</td></tr>
+                <tr><td>Windows Hello (lokal)</td><td>–</td><td>–</td><td class="good">Bare den PC-en</td><td>–</td></tr>
+                <tr><td>Passordbehandler</td><td class="good">✔</td><td class="good">✔</td><td class="good">✔</td><td class="good">✔</td></tr>
+                <tr><td>Sikkerhetsnøkkel</td><td class="good">✔</td><td class="good">✔</td><td class="good">✔</td><td class="good">✔</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. WINDOWS HELLO -->
+    <section id="windows-hello" class="section">
+      <div class="wrap">
+        <p class="eyebrow">Del 3</p>
+        <h2>Passkeys med Windows Hello</h2>
+        <p class="lead">Windows Hello er måten Windows kjenner deg igjen på: ansikt, fingeravtrykk eller PIN. Når du lager en passkey på en Windows-PC, er det Windows Hello som beskytter den.</p>
+
+        <div class="layers">
+          <div class="layer"><span class="badge">Du</span><p>Ansikt, fingeravtrykk eller PIN</p></div>
+          <div class="arrow">↓ låser opp</div>
+          <div class="layer"><span class="badge">Windows Hello</span><p>Bekrefter at det er deg, lokalt på PC-en</p></div>
+          <div class="arrow">↓ gir tilgang til</div>
+          <div class="layer"><span class="badge">TPM-brikken</span><p>En sikker brikke i PC-en der den private nøkkelen ligger innelåst</p></div>
+          <div class="arrow">↓ signerer</div>
+          <div class="layer"><span class="badge">Nettsiden</span><p>Sjekker signaturen med den offentlige nøkkelen, og du er inne</p></div>
+        </div>
+
+        <aside class="callout">
+          <strong>PIN-en er ikke et passord.</strong> Windows Hello-PIN-en virker bare på akkurat denne PC-en og sendes aldri over nettet. Om noen ser den, må de fortsatt ha PC-en din fysisk i hånda.
+        </aside>
+
+        <h3 class="sub">Slik lager du en passkey på Windows</h3>
+        <ol class="howto">
+          <li>
+            <h4>Sett opp Windows Hello</h4>
+            <p><kbd>Innstillinger</kbd> → <kbd>Kontoer</kbd> → <kbd>Påloggingsalternativer</kbd>. Sett opp ansiktsgjenkjenning, fingeravtrykk eller PIN.</p>
+          </li>
+          <li>
+            <h4>Gå til en nettside som støtter passkeys</h4>
+            <p>For eksempel Google, Microsoft, Apple, GitHub, Amazon eller PayPal. Se etter «Sikkerhet», «Påloggingsmetoder» eller «Passkeys».</p>
+          </li>
+          <li>
+            <h4>Velg «Opprett passkey»</h4>
+            <p>Windows viser en dialog som spør hvor passkeyen skal lagres: på denne PC-en, på en telefon/nettbrett, på en sikkerhetsnøkkel eller i en passordbehandler du har koblet til.</p>
+          </li>
+          <li>
+            <h4>Bekreft med Windows Hello</h4>
+            <p>Se i kameraet, legg fingeren på leseren eller skriv PIN. Ferdig! Neste gang logger du inn på samme måte.</p>
+          </li>
+        </ol>
+
+        <h3 class="sub">Hvor havner passkeyen? Du velger</h3>
+        <div class="choices">
+          <div class="card choice">
+            <h4>💻 Denne PC-en</h4>
+            <p>Lagres i TPM-brikken. Veldig sikkert, men <strong>følger ikke med</strong> til andre enheter. Bytter du eller nullstiller PC-en, forsvinner den.</p>
+          </div>
+          <div class="card choice">
+            <h4>📱 iPhone eller Android</h4>
+            <p>Windows viser en QR-kode. Skann med telefonen, så lagres passkeyen der og synkroniseres med iCloud eller Google. Bra hvis du vil ha den overalt.</p>
+          </div>
+          <div class="card choice">
+            <h4>🧰 Passordbehandler</h4>
+            <p>Nyere Windows 11 lar 1Password, Bitwarden og lignende lagre passkeys direkte fra Windows-dialogen. De synkroniseres da til alle enhetene dine.</p>
+          </div>
+          <div class="card choice">
+            <h4>🔌 Sikkerhetsnøkkel</h4>
+            <p>Sett inn en USB-/NFC-nøkkel. Passkeyen bor på nøkkelen og kan brukes på hvilken som helst PC.</p>
+          </div>
+        </div>
+
+        <h3 class="sub">Administrer passkeyene dine</h3>
+        <p>I Windows 11: <kbd>Innstillinger</kbd> → <kbd>Kontoer</kbd> → <kbd>Passkeys</kbd>. Her ser du alle passkeys som er lagret lokalt, og kan slette dem du ikke trenger.</p>
+
+        <aside class="callout warn">
+          <strong>Før du bytter eller nullstiller PC-en:</strong> Passkeys som bare ligger lokalt i Windows Hello blir slettet. Sørg for at du har en annen måte å logge inn på kontoene dine: en passkey på telefonen, i en passordbehandler eller et gammeldags passord.
+        </aside>
+      </div>
+    </section>
+
+    <!-- 4. FAQ -->
+    <section id="faq" class="section alt">
+      <div class="wrap">
+        <p class="eyebrow">Del 4</p>
+        <h2>Spørsmål og svar</h2>
+        <p class="lead">Det folk oftest lurer på om passkeys, samlet fra brukerforum, støttesider og sikkerhetsblogger.</p>
+
+        <div class="faq-tools">
+          <input type="search" id="faqSearch" placeholder="Søk i spørsmålene … f.eks. «miste telefonen»" aria-label="Søk i spørsmål og svar">
+          <div class="chips" id="faqChips">
+            <button class="chip active" data-cat="alle">Alle</button>
+            <button class="chip" data-cat="sikkerhet">Sikkerhet</button>
+            <button class="chip" data-cat="tap">Mistet enhet</button>
+            <button class="chip" data-cat="enheter">Enheter</button>
+            <button class="chip" data-cat="windows">Windows</button>
+            <button class="chip" data-cat="praktisk">Praktisk</button>
+          </div>
+        </div>
+        <div id="faqList" class="faq-list"></div>
+        <p id="faqEmpty" class="muted" hidden>Fant ingen spørsmål som passer. Prøv et annet ord.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Laget for å forklare passkeys enkelt. Innholdet er generell veiledning. Sjekk alltid hjelpesidene til tjenesten du bruker.</p>
+      <p class="muted">Kilder og videre lesing: <a href="https://passkeys.dev" rel="noopener">passkeys.dev</a> · <a href="https://fidoalliance.org/passkeys/" rel="noopener">FIDO Alliance</a> · <a href="https://learn.microsoft.com/windows/security/identity-protection/passkeys" rel="noopener">Microsoft: passkeys i Windows</a> · <a href="https://web.dev/articles/passkey-management" rel="noopener">web.dev</a></p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
