@@ -158,6 +158,12 @@ const faq = [
     a: `<p>Bare hvis IT-avdelingen tillater synkroniserte passkeys. Mange bedrifter krever enhetsbundne passkeys, for eksempel i Microsoft Authenticator eller på en sikkerhetsnøkkel. Da blir registreringen avvist hvis du prøver å lagre den i iCloud eller Google.</p>` },
   { cat: "jobb", q: "Jeg har fått ny telefon. Hva skjer med passkeyen i Authenticator?",
     a: `<p>En passkey i Microsoft Authenticator er bundet til telefonen og følger <em>ikke</em> med til den nye. Logg inn på en annen måte (eller be IT om et midlertidig tilgangspass), registrer en ny passkey på aka.ms/mfasetup og slett den gamle fra lista.</p>` },
+  { cat: "jobb", q: "Er passkey i Authenticator det samme som å godkjenne varselet i Authenticator?",
+    a: `<p>Nei. Varselet der du skriver inn et tall er en vanlig godkjenning, og den kan i verste fall lures ut via en falsk innloggingsside. En passkey i Authenticator er phishing-sikker: den virker bare mot Microsofts ekte innloggingsside, og telefonen må være fysisk i nærheten av PC-en. Begge bor i samme app.</p>` },
+  { cat: "jobb", q: "Følger passkeyen med når jeg gjenoppretter Authenticator fra backup?",
+    a: `<p>Nei. Authenticator-backupen tar med kontoene, men ikke passkeys. De er bundet til den ene telefonen. På ny telefon må du lage en ny passkey og slette den gamle på aka.ms/mfasetup.</p>` },
+  { cat: "jobb", q: "Registreringen av passkey i Authenticator feiler. Hva gjør jeg?",
+    a: `<p>Det vanligste er at Authenticator ikke er slått på som passkey-leverandør. iPhone: <kbd>Innstillinger</kbd> → <kbd>Generelt</kbd> → <kbd>Autofyll og passord</kbd> → slå på Authenticator. Android: <kbd>Innstillinger</kbd> → <kbd>Passord, passkeys og kontoer</kbd>. Sjekk også at appen og telefonen er oppdatert, at telefonen har skjermlås, og at Bluetooth er på hvis du registrerer fra PC-en. Hjelper ikke det, kan IT ha stengt for passkeys i Authenticator.</p>` },
   { cat: "jobb", q: "Er Windows Hello for Business det samme som en passkey?",
     a: `<p>Teknisk sett ligner det, men det er en egen påloggingsmetode som settes opp på jobb-PC-en. Den vises ikke som «Passkey» på aka.ms/mfasetup og kan bare brukes på den ene PC-en.</p>` },
 ];

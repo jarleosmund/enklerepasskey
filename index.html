@@ -350,6 +350,70 @@
         </ol>
         <p class="muted">Navnene på knappene kan variere litt. Neste gang du logger inn, velger du «Påloggingsalternativer» eller «Ansikt, fingeravtrykk, PIN eller sikkerhetsnøkkel».</p>
 
+        <h3 class="sub">Passkey i Microsoft Authenticator</h3>
+        <p>For jobbkontoer er Microsoft Authenticator på telefonen det vanligste stedet å ha passkeyen. Den er <strong>enhetsbundet</strong>: den ligger bare i Authenticator-appen på den ene telefonen. Derfor godtar IT den ofte selv der synkroniserte passkeys ikke er tillatt.</p>
+
+        <div class="card">
+          <dl class="facts">
+            <dt>Lagres i</dt><dd>Authenticator-appen, beskyttet av telefonens sikre brikke</dd>
+            <dt>Synkroniseres</dt><dd class="warn">Nei. Blir på den ene telefonen.</dd>
+            <dt>Sikkerhetskopi</dt><dd class="warn">Nei. Authenticator-backupen tar ikke med passkeys.</dd>
+            <dt>Låses opp med</dt><dd>Face ID, fingeravtrykk eller telefonens kode</dd>
+            <dt>Krever</dt><dd>Nyere iPhone (iOS 17+) eller Android (14+), oppdatert Authenticator og skjermlås på telefonen</dd>
+            <dt>Gjelder</dt><dd>Jobb- og skolekontoer (Entra ID)</dd>
+          </dl>
+        </div>
+
+        <aside class="callout warn">
+          <strong>Slå på Authenticator som passkey-leverandør først.</strong> Ellers feiler registreringen, ofte med en uklar feilmelding.<br>
+          <strong>iPhone:</strong> <kbd>Innstillinger</kbd> → <kbd>Generelt</kbd> → <kbd>Autofyll og passord</kbd> → slå på <kbd>Authenticator</kbd>.<br>
+          <strong>Android:</strong> <kbd>Innstillinger</kbd> → <kbd>Passord, passkeys og kontoer</kbd> → slå på <kbd>Authenticator</kbd>. Menynavnene varierer litt mellom produsenter.
+        </aside>
+
+        <h4>To måter å opprette den på</h4>
+        <div class="choices">
+          <div class="card choice">
+            <h4>📱 Fra appen</h4>
+            <p>Åpne Authenticator, trykk på jobbkontoen og velg <em>Opprett passkey</em>. Logg inn og bekreft med Face ID, fingeravtrykk eller kode. Har du ikke kontoen i appen ennå: <em>+</em> → <em>Jobb- eller skolekonto</em> → <em>Logg på</em>.</p>
+          </div>
+          <div class="card choice">
+            <h4>💻 Fra PC-en</h4>
+            <p>Gå til <a href="https://aka.ms/mfasetup" rel="noopener">aka.ms/mfasetup</a> → <em>Legg til påloggingsmetode</em> → <em>Passkey i Microsoft Authenticator</em>. Følg veiviseren og skann QR-koden med telefonen. Bluetooth må være på begge.</p>
+          </div>
+        </div>
+        <p class="muted">For å legge til en passkey må du først bevise hvem du er, med en annen metode du allerede har, eller med et midlertidig tilgangspass (TAP) fra IT.</p>
+
+        <h4>Slik logger du inn med den</h4>
+        <ol class="howto">
+          <li>
+            <h4>På telefonen</h4>
+            <p>Når du logger inn i en app eller nettleser på telefonen, velger du passkey. Authenticator dukker opp i telefonens passkey-dialog, og du bekrefter med ansikt eller finger.</p>
+          </li>
+          <li>
+            <h4>På en PC eller annen enhet</h4>
+            <p>Velg <em>Påloggingsalternativer</em> → <em>Ansikt, fingeravtrykk, PIN eller sikkerhetsnøkkel</em> → <em>iPhone, iPad eller Android-enhet</em>. Skann QR-koden med telefonen og bekreft. Bluetooth sjekker at telefonen er i nærheten, og begge trenger internett.</p>
+          </li>
+        </ol>
+
+        <div class="table-wrap">
+          <table class="compare">
+            <thead>
+              <tr><th></th><th>Godkjenning i Authenticator (varsel med tall)</th><th>Passkey i Authenticator</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Hvordan det ser ut</td><td>Varsel på telefonen, du skriver inn tallet fra skjermen</td><td>Du skanner QR-kode eller velger passkey, og bekrefter med ansikt eller finger</td></tr>
+              <tr><td>Kan lures (phishing)</td><td class="bad">Ja, en falsk innloggingsside kan videresende godkjenningen</td><td class="good">Nei, virker bare på Microsofts ekte innloggingsside</td></tr>
+              <tr><td>Telefonen må være i nærheten av PC-en</td><td>Nei</td><td class="good">Ja (Bluetooth)</td></tr>
+              <tr><td>Godtas der IT krever phishing-sikker innlogging</td><td class="bad">Nei</td><td class="good">Ja</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Begge deler bor i samme app, men passkeyen er den sikre varianten. Du kan ha begge på samme konto.</p>
+
+        <aside class="callout warn">
+          <strong>Ny telefon, nullstilt telefon eller slettet app?</strong> Da er passkeyen borte. Den blir ikke med i backup og kan ikke flyttes. Logg inn med en annen metode eller be IT om et midlertidig tilgangspass, lag en ny passkey på den nye telefonen, og slett den gamle på aka.ms/mfasetup. Har du både gammel og ny telefon, lag den nye <em>før</em> du nullstiller den gamle.
+        </aside>
+
         <aside class="callout">
           <strong>Windows Hello for Business er noe annet.</strong> Mange jobb-PC-er bruker Windows Hello for Business til å logge på Windows og Microsoft 365. Det fungerer på samme måte som en passkey, men settes opp av PC-en og vises ikke som «Passkey» på aka.ms/mfasetup. Den gjelder bare den ene PC-en.
         </aside>
