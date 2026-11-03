@@ -15,6 +15,7 @@
         <a href="#forskjell">Passord vs. passkey</a>
         <a href="#lagring">Lagring</a>
         <a href="#windows-hello">Windows Hello</a>
+        <a href="#jobb">Jobbkonto</a>
         <a href="#faq">Spørsmål og svar</a>
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Bytt mellom lyst og mørkt tema">◐</button>
@@ -30,7 +31,8 @@
         <li><span>1</span> Forskjellen</li>
         <li><span>2</span> Hvor de lagres</li>
         <li><span>3</span> Windows Hello</li>
-        <li><span>4</span> Spørsmål og svar</li>
+        <li><span>4</span> Jobbkonto (Entra)</li>
+        <li><span>5</span> Spørsmål og svar</li>
       </ol>
     </section>
 
@@ -263,10 +265,101 @@
       </div>
     </section>
 
-    <!-- 4. FAQ -->
-    <section id="faq" class="section alt">
+    <!-- 4. JOBBKONTO / ENTRA -->
+    <section id="jobb" class="section alt">
       <div class="wrap">
         <p class="eyebrow">Del 4</p>
+        <h2>Passkeys på jobbkontoen (Microsoft Entra)</h2>
+        <p class="lead">Jobbkontoen din hos Microsoft (Entra ID, tidligere Azure AD) kan bruke passkeys i stedet for passord og SMS-koder. Du registrerer dem på <a href="https://aka.ms/mfasetup" rel="noopener">aka.ms/mfasetup</a>, under <em>Sikkerhetsinformasjon</em>.</p>
+
+        <aside class="callout">
+          <strong>Lista på aka.ms/mfasetup er bare låsene.</strong> Når du registrerer en passkey, lagrer Microsoft bare den <em>offentlige</em> nøkkelen og litt informasjon om hva slags passkey det er. Den <em>private</em> nøkkelen, selve hemmeligheten, ligger på telefonen, PC-en, sikkerhetsnøkkelen eller i passordbehandleren din. Den kommer aldri til Microsoft.
+        </aside>
+
+        <div class="kinds">
+          <div class="card kind">
+            <h3>📍 Enhetsbundet</h3>
+            <p>Ligger på én bestemt ting og kan ikke kopieres: en sikkerhetsnøkkel (f.eks. YubiKey), <strong>Microsoft Authenticator</strong> på telefonen eller TPM-brikken i en Windows-PC. Mister du den, er passkeyen borte.</p>
+          </div>
+          <div class="card kind">
+            <h3>☁️ Synkronisert</h3>
+            <p>Ligger hos en leverandør som kopierer den til alle enhetene dine: iCloud-nøkkelring, Google Passordbehandler, 1Password, Bitwarden osv. Overlever telefonbytte, men er bare så trygg som den private Apple-, Google- eller passordbehandlerkontoen din.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="compare">
+            <thead>
+              <tr><th></th><th>Enhetsbundet</th><th>Synkronisert</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Kan kopieres til andre enheter</td><td>Nei</td><td>Ja, i samme konto eller passordbehandler</td></tr>
+              <tr><td>IT kan sjekke hvilken type det er</td><td class="good">Ja, den kan bevise modellen sin (attestasjon)</td><td class="bad">Vanligvis ikke</td></tr>
+              <tr><td>Phishing-sikker</td><td class="good">Ja</td><td class="good">Ja</td></tr>
+              <tr><td>Hvis du mister telefonen</td><td class="bad">Borte, må registreres på nytt</td><td class="good">Finnes på den nye telefonen</td></tr>
+              <tr><td>Typisk brukt til</td><td>Administratorer og kontoer med mye tilgang</td><td>Vanlige brukere</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Om synkroniserte passkeys er lov, bestemmer IT-avdelingen. Entra har lenge bare godtatt enhetsbundne passkeys. Nå kan IT velge per gruppe, for eksempel tillate synkroniserte for vanlige ansatte og kreve enhetsbundne for administratorer. Får du feilmelding når du prøver å lagre passkeyen i iCloud eller Google, er det sannsynligvis derfor.</p>
+
+        <h3 class="sub">Kan jeg alltid logge inn med en passkey som står i lista?</h3>
+        <p><strong>Nei, ikke nødvendigvis.</strong> At den står der betyr bare at den er registrert. For at den skal virke, må alt dette stemme:</p>
+        <ol class="howto">
+          <li>
+            <h4>Du har den private nøkkelen</h4>
+            <p>Enhetsbundet: du må ha akkurat den telefonen eller nøkkelen. Passkey i Authenticator på telefonen kan brukes på en PC via QR-kode, men telefonen må være i nærheten (Bluetooth). Synkronisert: du må være på en enhet som er logget inn i riktig konto eller passordbehandler. Har du nullstilt telefonen eller slettet passkeyen der, står den fortsatt i lista, men er ubrukelig.</p>
+          </li>
+          <li>
+            <h4>IT tillater den fortsatt</h4>
+            <p>Strammer IT inn reglene etterpå, for eksempel ved å bare godta enhetsbundne passkeys eller bestemte nøkkelmodeller, slutter passkeys som ikke oppfyller kravene å virke, selv om de fortsatt vises.</p>
+          </li>
+          <li>
+            <h4>Tjenesten du skal inn på godtar den</h4>
+            <p>Noen systemer kan kreve strengere innlogging enn andre (<em>Conditional Access</em>). En synkronisert passkey kan slippe deg inn i Teams og Outlook, men bli avvist i et adminverktøy som krever enhetsbunden nøkkel. Krav om jobb-PC, land eller lignende gjelder også, uansett passkey.</p>
+          </li>
+          <li>
+            <h4>Kontoen din er aktiv</h4>
+            <p>En deaktivert eller sperret konto slipper ikke inn, uansett innloggingsmetode.</p>
+          </li>
+        </ol>
+
+        <aside class="callout warn">
+          <strong>Rydd i lista.</strong> Har du byttet telefon, mistet en nøkkel eller slettet passkeyen på enheten, slett den også på <a href="https://aka.ms/mfasetup" rel="noopener">aka.ms/mfasetup</a>. Og motsatt: sletter du den på aka.ms/mfasetup, virker ikke kopien på telefonen lenger.
+        </aside>
+
+        <h3 class="sub">Slik legger du til en passkey på jobbkontoen</h3>
+        <ol class="howto">
+          <li>
+            <h4>Gå til aka.ms/mfasetup</h4>
+            <p>Logg inn med jobbkontoen. Du havner på <em>Sikkerhetsinformasjon</em>.</p>
+          </li>
+          <li>
+            <h4>Velg «Legg til påloggingsmetode» → «Passkey»</h4>
+            <p>Ser du ikke passkey i lista, har IT ikke slått det på for deg ennå.</p>
+          </li>
+          <li>
+            <h4>Velg hvor den skal lagres</h4>
+            <p>Microsoft Authenticator på telefonen, en sikkerhetsnøkkel, eller (hvis IT tillater det) iCloud, Google eller passordbehandleren din.</p>
+          </li>
+          <li>
+            <h4>Bekreft og gi den et navn</h4>
+            <p>Bekreft med ansikt, fingeravtrykk eller PIN. Gi passkeyen et navn du kjenner igjen, f.eks. «iPhone 16» eller «YubiKey blå».</p>
+          </li>
+        </ol>
+        <p class="muted">Navnene på knappene kan variere litt. Neste gang du logger inn, velger du «Påloggingsalternativer» eller «Ansikt, fingeravtrykk, PIN eller sikkerhetsnøkkel».</p>
+
+        <aside class="callout">
+          <strong>Windows Hello for Business er noe annet.</strong> Mange jobb-PC-er bruker Windows Hello for Business til å logge på Windows og Microsoft 365. Det fungerer på samme måte som en passkey, men settes opp av PC-en og vises ikke som «Passkey» på aka.ms/mfasetup. Den gjelder bare den ene PC-en.
+        </aside>
+      </div>
+    </section>
+
+    <!-- 5. FAQ -->
+    <section id="faq" class="section">
+      <div class="wrap">
+        <p class="eyebrow">Del 5</p>
         <h2>Spørsmål og svar</h2>
         <p class="lead">Det folk oftest lurer på om passkeys, samlet fra brukerforum, støttesider og sikkerhetsblogger.</p>
 
@@ -278,6 +371,7 @@
             <button class="chip" data-cat="tap">Mistet enhet</button>
             <button class="chip" data-cat="enheter">Enheter</button>
             <button class="chip" data-cat="windows">Windows</button>
+            <button class="chip" data-cat="jobb">Jobbkonto</button>
             <button class="chip" data-cat="praktisk">Praktisk</button>
           </div>
         </div>
@@ -290,7 +384,7 @@
   <footer class="site-footer">
     <div class="wrap">
       <p>Laget for å forklare passkeys enkelt. Innholdet er generell veiledning. Sjekk alltid hjelpesidene til tjenesten du bruker.</p>
-      <p class="muted">Kilder og videre lesing: <a href="https://passkeys.dev" rel="noopener">passkeys.dev</a> · <a href="https://fidoalliance.org/passkeys/" rel="noopener">FIDO Alliance</a> · <a href="https://learn.microsoft.com/windows/security/identity-protection/passkeys" rel="noopener">Microsoft: passkeys i Windows</a> · <a href="https://web.dev/articles/passkey-management" rel="noopener">web.dev</a></p>
+      <p class="muted">Kilder og videre lesing: <a href="https://passkeys.dev" rel="noopener">passkeys.dev</a> · <a href="https://fidoalliance.org/passkeys/" rel="noopener">FIDO Alliance</a> · <a href="https://learn.microsoft.com/windows/security/identity-protection/passkeys" rel="noopener">Microsoft: passkeys i Windows</a> · <a href="https://learn.microsoft.com/entra/identity/authentication/how-to-enable-passkey-fido2" rel="noopener">Microsoft: passkeys i Entra ID</a> · <a href="https://web.dev/articles/passkey-management" rel="noopener">web.dev</a></p>
     </div>
   </footer>
 

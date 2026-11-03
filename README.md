@@ -5,7 +5,8 @@ En enkel, statisk webapp på norsk som forklarer:
 1. Forskjellen på passord og passkey (med animert innloggingsdemo)
 2. Hvordan passkeys lagres på ulike enheter (Apple, Android/Chrome, Windows, passordbehandlere, sikkerhetsnøkler)
 3. Hvordan passkeys brukes sammen med Windows Hello
-4. Spørsmål og svar (søkbar FAQ)
+4. Passkeys på jobbkontoen i Microsoft Entra (aka.ms/mfasetup): enhetsbundne vs. synkroniserte, og når en registrert passkey faktisk virker
+5. Spørsmål og svar (søkbar FAQ)
 
 ## Kjør lokalt
 

@@ -152,9 +152,17 @@ const faq = [
     a: `<p>En passkey er personlig og krever din biometri eller PIN. Noen passordbehandlere (og Apples Passord-app) lar deg dele passkeys med familie i en delt gruppe. Ellers kan hver person lage sin egen passkey hvis tjenesten tillater flere brukere.</p>` },
   { cat: "sikkerhet", q: "Hva om Apple, Google eller passordbehandleren min blir hacket?",
     a: `<p>Synkroniserte passkeys er ende-til-ende-kryptert. Leverandøren har ikke nøklene for å dekryptere dem. Selv om noen fikk tak i den krypterte dataen, kan den ikke brukes uten en av dine opplåste enheter. Ønsker du maksimal kontroll, kan du bruke en fysisk sikkerhetsnøkkel.</p>` },
+  { cat: "jobb", q: "Passkeyen står på aka.ms/mfasetup. Kan jeg da alltid logge inn med den?",
+    a: `<p>Ikke nødvendigvis. Lista viser bare at passkeyen er registrert. Du må også ha den private nøkkelen (telefonen, nøkkelen eller passordbehandleren), IT må fortsatt tillate den typen passkey, og tjenesten du skal inn på må godta den. Se <a href="#jobb">Jobbkonto-delen</a>.</p>` },
+  { cat: "jobb", q: "Kan jeg lagre jobb-passkeyen i iCloud-nøkkelringen eller Google?",
+    a: `<p>Bare hvis IT-avdelingen tillater synkroniserte passkeys. Mange bedrifter krever enhetsbundne passkeys, for eksempel i Microsoft Authenticator eller på en sikkerhetsnøkkel. Da blir registreringen avvist hvis du prøver å lagre den i iCloud eller Google.</p>` },
+  { cat: "jobb", q: "Jeg har fått ny telefon. Hva skjer med passkeyen i Authenticator?",
+    a: `<p>En passkey i Microsoft Authenticator er bundet til telefonen og følger <em>ikke</em> med til den nye. Logg inn på en annen måte (eller be IT om et midlertidig tilgangspass), registrer en ny passkey på aka.ms/mfasetup og slett den gamle fra lista.</p>` },
+  { cat: "jobb", q: "Er Windows Hello for Business det samme som en passkey?",
+    a: `<p>Teknisk sett ligner det, men det er en egen påloggingsmetode som settes opp på jobb-PC-en. Den vises ikke som «Passkey» på aka.ms/mfasetup og kan bare brukes på den ene PC-en.</p>` },
 ];
 
-const catLabels = { sikkerhet: "Sikkerhet", tap: "Mistet enhet", enheter: "Enheter", windows: "Windows", praktisk: "Praktisk" };
+const catLabels = { sikkerhet: "Sikkerhet", tap: "Mistet enhet", enheter: "Enheter", windows: "Windows", jobb: "Jobbkonto", praktisk: "Praktisk" };
 const faqList = document.getElementById("faqList");
 const faqEmpty = document.getElementById("faqEmpty");
 const faqSearch = document.getElementById("faqSearch");
